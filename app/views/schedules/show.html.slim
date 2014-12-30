@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Hour:
+  = @schedule.hour
+p
+  strong Target:
+  = @schedule.target
+
+= link_to 'Edit', edit_schedule_path(@schedule)
+'|
+= link_to 'Back', schedules_path
