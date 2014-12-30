@@ -7,6 +7,7 @@ class CreateTargets < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :targets, :url
+    # attrs as unique
+    add_index :targets, :url, unique: true
   end
 end
