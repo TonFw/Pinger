@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "scheduleds/show" do
+describe "schedules/show" do
   before(:each) do
-    @scheduled = assign(:scheduled, stub_model(Scheduled,
+    @schedule = assign(:schedule, stub_model(Schedule,
       :hour => "",
       :target => nil
     ))

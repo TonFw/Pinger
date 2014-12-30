@@ -1,6 +1,6 @@
-class CreateScheduleds < ActiveRecord::Migration
+class CreateSchedules < ActiveRecord::Migration
   def change
-    create_table :scheduleds do |t|
+    create_table :schedules do |t|
       t.integer :hour
       t.belongs_to :target, index: true
 

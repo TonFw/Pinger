@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe "scheduleds/index" do
+describe "schedules/index" do
   before(:each) do
-    assign(:scheduleds, [
-      stub_model(Scheduled,
+    assign(:schedules, [
+      stub_model(Schedule,
         :hour => "",
         :target => nil
       ),
-      stub_model(Scheduled,
+      stub_model(Schedule,
         :hour => "",
         :target => nil
       )
     ])
   end
 
-  it "renders a list of scheduleds" do
+  it "renders a list of schedules" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "".to_s, :count => 2
