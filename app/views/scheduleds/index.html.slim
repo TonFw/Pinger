@@ -1,0 +1,23 @@
+h1 Listing scheduleds
+
+table
+  thead
+    tr
+      th Hour
+      th Target
+      th
+      th
+      th
+
+  tbody
+    - @scheduleds.each do |scheduled|
+      tr
+        td = scheduled.hour
+        td = scheduled.target
+        td = link_to 'Show', scheduled
+        td = link_to 'Edit', edit_scheduled_path(scheduled)
+        td = link_to 'Destroy', scheduled, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Scheduled', new_scheduled_path

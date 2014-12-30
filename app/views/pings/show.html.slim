@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Http code:
+  = @ping.http_code
+p
+  strong Scheduled:
+  = @ping.scheduled
+p
+  strong Target:
+  = @ping.target
+
+= link_to 'Edit', edit_ping_path(@ping)
+'|
+= link_to 'Back', pings_path

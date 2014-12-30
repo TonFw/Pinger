@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :pings
+
+  resources :scheduleds
+
+  resources :targets
+
   get 'home/index'
 
   devise_for :users
