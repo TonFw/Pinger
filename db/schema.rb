@@ -11,27 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141230165905) do
+ActiveRecord::Schema.define(version: 20141230181046) do
 
   create_table "pings", force: true do |t|
     t.integer  "http_code"
-    t.integer  "scheduled_id"
+    t.integer  "schedule_id"
     t.integer  "target_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "pings", ["scheduled_id"], name: "index_pings_on_scheduled_id", using: :btree
+  add_index "pings", ["schedule_id"], name: "index_pings_on_schedule_id", using: :btree
   add_index "pings", ["target_id"], name: "index_pings_on_target_id", using: :btree
 
-  create_table "scheduleds", force: true do |t|
+  create_table "schedules", force: true do |t|
     t.integer  "hour"
     t.integer  "target_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "scheduleds", ["target_id"], name: "index_scheduleds_on_target_id", using: :btree
+  add_index "schedules", ["target_id"], name: "index_schedules_on_target_id", using: :btree
 
   create_table "targets", force: true do |t|
     t.string   "url"
