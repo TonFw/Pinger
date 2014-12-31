@@ -5,7 +5,7 @@ class SchedulesController < ApplicationController
   respond_to :html
 
   def index
-    @schedules = Schedule.all
+    @schedules = Schedule.where(target_id: params[:target_id])
     respond_with(@schedules)
   end
 
