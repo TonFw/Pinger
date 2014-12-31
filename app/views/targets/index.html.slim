@@ -13,7 +13,8 @@ table
     - @targets.each do |target|
       tr
         td = target.url
-        td = target.user
+        td = target.user.name
+        td = link_to 'AddSchedule', new_target_schedule_path(target)
         td = link_to 'Show', target
         td = link_to 'Edit', edit_target_path(target)
         td = link_to 'Destroy', target, data: {:confirm => 'Are you sure?'}, :method => :delete

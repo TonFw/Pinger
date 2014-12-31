@@ -1,4 +1,4 @@
-= form_for @schedule do |f|
+= form_for [@target,@schedule] do |f|
   - if @schedule.errors.any?
     #error_explanation
       h2 = "#{pluralize(@schedule.errors.count, "error")} prohibited this schedule from being saved:"
@@ -9,7 +9,4 @@
   .field
     = f.label :hour
     = f.text_field :hour
-  .field
-    = f.label :target
-    = f.text_field :target
   .actions = f.submit 'Save'

@@ -5,4 +5,3 @@ class AddColumnsToUser < ActiveRecord::Migration
     add_column :users, :locale, :string, limit: 5, after: :email
   end
 end
-

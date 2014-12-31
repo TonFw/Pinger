@@ -22,7 +22,8 @@ class TargetsController < ApplicationController
 
   def create
     @target = Target.new(target_params)
-    @target.save
+    @target.user_id = @current_user.id
+    flash[:notice] = 'Target created successfully' if @target.save
     respond_with(@target)
   end
 

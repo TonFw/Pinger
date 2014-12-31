@@ -5,8 +5,16 @@ p
   = @target.url
 p
   strong User:
-  = @target.user
+  = @target.user.name
 
-= link_to 'Edit', edit_target_path(@target)
+-@target.schedules.each do |schedule|
+  p
+    strong Hour:
+    =schedule.hour
+    -#link_to ' editar', edit_target_schedule(@target, schedule)
+
+= link_to 'Add schedules ', new_target_schedule_path(@target)
+'|
+= link_to 'Edit ', edit_target_path(@target)
 '|
 = link_to 'Back', targets_path

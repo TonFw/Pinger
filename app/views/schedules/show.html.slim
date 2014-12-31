@@ -5,8 +5,8 @@ p
   = @schedule.hour
 p
   strong Target:
-  = @schedule.target
+  = @schedule.target.url
 
-= link_to 'Edit', edit_schedule_path(@schedule)
+= link_to 'Edit', edit_target_schedule_path(@target, @schedule)
 '|
-= link_to 'Back', schedules_path
+= link_to 'Back', target_schedules_path(@target)

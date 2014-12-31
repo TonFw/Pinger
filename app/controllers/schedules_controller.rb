@@ -1,4 +1,5 @@
 class SchedulesController < ApplicationController
+  before_action :setup_nested
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -23,7 +24,7 @@ class SchedulesController < ApplicationController
   def create
     @schedule = Schedule.new(schedule_params)
     @schedule.save
-    respond_with(@schedule)
+    respond_with(@target, @schedule)
   end
 
   def update
@@ -42,6 +43,10 @@ class SchedulesController < ApplicationController
     end
 
     def schedule_params
-      params.require(:schedule).permit(:hour, :target_id)
+      params.require(:schedule).permit(:hour).merge(target_id:params[:target_id])
+    end
+
+    def setup_nested
+      @target = Target.find(params[:target_id])
     end
 end
