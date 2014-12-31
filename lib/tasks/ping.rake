@@ -16,13 +16,13 @@ namespace :ping do
     puts "The ping:schedules task is waiting...".light_blue
 
     # Run every time passed here as string
-    scheduler.every '10s' do
+    scheduler.every '15s' do
       # base vars & starts
       puts 'Scheduled running pings'.green
       current_hour = Time.now.hour
 
       # Run the Pings
-      targets = Target.joins(:schedules).where("schedules.hour LIKE '#{current_hour}'")
+      targets = Target.all #.joins(:schedules).where("schedules.hour LIKE '#{current_hour}'")
       targets.each do |target|
         begin
           resp = RestClient.get target.url
@@ -51,7 +51,7 @@ namespace :ping do
         end
 
         current_schedule = target.schedules.where(hour:current_hour).take
-        ping = Ping.create(http_code:resp_code, target_id:target.id, schedule_id:current_schedule.id)
+        ping = Ping.create(http_code:resp_code, target_id:target.id, schedule_id:1) #current_schedule.id
         ping.errors.messages.empty? ? print_str = "Ping created: #{ping}".green : print_str = "Ping not created: #{ping}".red
         puts print_str
       end
