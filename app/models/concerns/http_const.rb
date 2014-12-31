@@ -1,6 +1,5 @@
 class HttpConst
-  def self.codes
-    {
+  @@codes = {
       #Informational 1xx:
       HTTP_CONTINUE:100,
       HTTP_SWITCHING_PROTOCOLS:101,
@@ -43,13 +42,16 @@ class HttpConst
       HTTP_RANGE_NOT_SATISFIABLE:416,
       HTTP_EXPECTATION_FAILED:417,
 
-        #Server Error 5xx:
-        HTTP_INTERNAL_SERVER_ERROR:500,
-        HTTP_NOT_IMPLEMENTED:501,
-        HTTP_BAD_GATEWAY:502,
-        HTTP_SERVICE_UNAVAILABLE:503,
-        HTTP_GATEWAY_TIME_OUT:504,
-        HTTP_VERSION_NOT_SUPPORTED:505
-    }
+      #Server Error 5xx:
+      HTTP_INTERNAL_SERVER_ERROR:500,
+      HTTP_NOT_IMPLEMENTED:501,
+      HTTP_BAD_GATEWAY:502,
+      HTTP_SERVICE_UNAVAILABLE:503,
+      HTTP_GATEWAY_TIME_OUT:504,
+      HTTP_VERSION_NOT_SUPPORTED:505
+  }
+
+  def self.codes
+    @@codes
   end
 end
