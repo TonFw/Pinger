@@ -6,5 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 puts 'Inserting Users...'.colorize(:green)
-  puts "user created: #{User.create!({email:'ii@i.i', password:'123', password_confirmation:'123'})}"
+  puts "user created: #{User.create!({name:'Ilton', email:'ii@i.i', password:'123', password_confirmation:'123'})}"
 puts '...Users inserted.'.colorize(:light_blue)
+
+puts 'Inserting Targets...'.colorize(:green)
+  puts "target itself created: #{Target.create!({url:'http://apppinger.herokuapp.com'})}"
+puts '...Targets inserted.'.colorize(:light_blue)
