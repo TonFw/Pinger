@@ -10,5 +10,5 @@ puts 'Inserting Users...'.colorize(:green)
 puts '...Users inserted.'.colorize(:light_blue)
 
 puts 'Inserting Targets...'.colorize(:green)
-  puts "target itself created: #{Target.create!({url:'http://apppinger.herokuapp.com'})}"
+  puts "target itself created: #{Target.create!({url:'http://apppinger.herokuapp.com', user_id:1})}"
 puts '...Targets inserted.'.colorize(:light_blue)
