@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     def authenticate_or_token
       @@host = request.host_with_port
       return if params[:action].index('login') || params[:controller] == 'accesses'
-      authenticate_user! if params[:controller].index('api').nil? && request.fullpath != root_path
+      authenticate_user! if params[:controller].index('api').nil?
       @current_user = current_user if @current_user.nil?
     end
 end
