@@ -58,6 +58,7 @@ namespace :ping do
 
       # teardown rake
       puts 'Scheduled pings executed'.light_yellow
+      system('rake blank')
     end
 
     # Add it scheduler to the processes pile
