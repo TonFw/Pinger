@@ -8,9 +8,12 @@ html
   body
     /! TODO add navbar here...
 
-    /! Alerts
-    p.notice= notice
-    p.alert= alert
+    .container
+      /! Alerts
+      -unless notice.nil?
+        .alert.alert-success: p.notice= notice
+      -unless alert.nil?
+        .alert.alert-danger: p.alert= alert
 
-    /! Content of the action
-    = yield
+      /! Content of the action
+      = yield
