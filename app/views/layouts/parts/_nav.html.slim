@@ -1,0 +1,14 @@
+nav.navbar.navbar-default
+  .container-fluid
+    /! Header (BRAND)
+    .navbar-header
+      a.navbar-brand href="#{root_path}" Pinger
+    /! Links to nav
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li.active
+          =link_to 'Home', root_path
+        li
+          =link_to 'Targets', targets_path
+        li
+          =link_to 'History', pings_history_path
