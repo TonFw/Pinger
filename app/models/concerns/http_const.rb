@@ -62,4 +62,21 @@ class HttpConst
 
     keys[values.find_index(key)]
   end
+
+  # Check the HTTP code type
+  def self.success? code
+      code >= 200 && code < 300 ? true : false
+  end
+
+  def self.redirect? code
+      code >= 300 && code < 400 ? true : false
+  end
+
+  def self.client_error? code
+      code >= 400 && code < 500 ? true : false
+  end
+
+  def self.server_error? code
+      code >= 500 ? true : false
+  end
 end
