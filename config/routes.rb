@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # Custom URLs
+  get 'pings/history' => 'pings#history', as: :pings_history
+
   # Root request
   root to: "home#index"
 
