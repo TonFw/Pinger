@@ -60,6 +60,6 @@ class HttpConst
     keys = HttpConst.codes.keys
     values = HttpConst.codes.values
 
-    values[keys.find_index(key)]
+    keys[values.find_index(key)]
   end
 end
