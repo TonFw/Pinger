@@ -6,7 +6,9 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   body
-    /! TODO add navbar here...
+    /! Navbar
+    -unless params[:controller].index('devise')
+      =render '/layouts/parts/nav'
 
     .container
       /! Alerts
