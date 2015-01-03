@@ -54,4 +54,12 @@ class HttpConst
   def self.codes
     @@codes
   end
+
+  # return it http code name based on the number passed as key
+  def self.code_name key
+    keys = HttpConst.codes.keys
+    values = HttpConst.codes.values
+
+    values[keys.find_index(key)]
+  end
 end
