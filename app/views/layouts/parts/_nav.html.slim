@@ -6,9 +6,13 @@ nav.navbar.navbar-default
     /! Links to nav
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li.active
+        -params[:controller] == 'home' ? home='active' :  home=''
+        -params[:controller] == 'targets' ? target='active' :  target=''
+        -params[:controller] == 'histories' ? history='active' :  history=''
+
+        li class="#{home}"
           =link_to 'Home', root_path
-        li
+        li class="#{target}"
           =link_to 'Targets', targets_path
-        li
+        li class="#{history}"
           =link_to 'History', pings_history_path
