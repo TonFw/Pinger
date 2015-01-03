@@ -8,6 +8,11 @@ class PingsController < ApplicationController
     respond_with(@pings)
   end
 
+  def history
+    @pings = Ping.all
+    @targets = @current_user.targets
+  end
+
   def show
     respond_with(@ping)
   end
