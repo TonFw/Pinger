@@ -19,6 +19,8 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe TargetsController do
+  # SetUp Devise LogIn
+  login_user
 
   # This should return the minimal set of attributes required to create a valid
   # Target. As you add validations to Target, be sure to
