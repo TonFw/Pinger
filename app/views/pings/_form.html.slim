@@ -1,4 +1,4 @@
-= form_for @ping do |f|
+= form_for [@target, @schedule, @ping] do |f|
   - if @ping.errors.any?
     #error_explanation
       h2 = "#{pluralize(@ping.errors.count, "error")} prohibited this ping from being saved:"
@@ -9,10 +9,4 @@
   .field
     = f.label :http_code
     = f.text_field :http_code
-  .field
-    = f.label :scheduled
-    = f.text_field :scheduled
-  .field
-    = f.label :target
-    = f.text_field :target
   .actions = f.submit 'Save'
