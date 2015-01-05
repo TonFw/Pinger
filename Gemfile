@@ -67,6 +67,9 @@ group :development, :test do
   # Option to not use Fixtures (FactoryGirl)
   gem 'factory_girl_rails'
 
+  # Additional GEM for FactoryGirl to clean the DB
+  gem 'database_cleaner', '~> 1.4.0'
+
   # Create readable attrs values
   gem 'faker', '~> 1.4.2'
 
