@@ -2,6 +2,7 @@ class Target < ActiveRecord::Base
   # Associations
   belongs_to :user
   has_many :schedules
+  has_many :pings
 
   # Rails validations
   validates :url, presence: true, length: { in: 10..255 }, on: [:create, :update]
