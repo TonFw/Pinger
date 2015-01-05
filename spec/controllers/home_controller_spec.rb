@@ -3,9 +3,10 @@ require 'spec_helper'
 describe HomeController do
 
   describe "GET 'index'" do
-    it "returns http success" do
+    it "returns http redirect" do
+      # Redirect because the user is not logged in
       get 'index'
-      response.should be_success
+      response.status.should == 302
     end
   end
 
