@@ -90,7 +90,7 @@ describe TargetsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Target.any_instance.stub(:save).and_return(false)
         post :create, {target: { url:nil }}
-        response.should render_template("new")
+        response.should redirect_to(targets_url)
       end
     end
   end
@@ -134,7 +134,7 @@ describe TargetsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Target.any_instance.stub(:save).and_return(false)
         put :update, {id: target.to_param, target: {url:nil}}
-        response.should render_template("edit")
+        response.should redirect_to(target_url(target))
       end
     end
   end

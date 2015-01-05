@@ -98,7 +98,7 @@ describe SchedulesController do
         # Trigger the behavior that occurs when invalid params are submitted
         Schedule.any_instance.stub(:save).and_return(false)
         post :create, {target_id:@target.id, schedule: {hour:nil}}
-        response.should render_template("new")
+        response.should redirect_to(target_schedules_url(@target))
       end
     end
   end
@@ -142,7 +142,7 @@ describe SchedulesController do
         # Trigger the behavior that occurs when invalid params are submitted
         Schedule.any_instance.stub(:save).and_return(false)
         put :update, {target_id:@target.id, id: schedule.to_param, schedule: {hour:nil}}
-        response.should render_template("edit")
+        response.should redirect_to(target_schedule_url(@target, schedule))
       end
     end
   end

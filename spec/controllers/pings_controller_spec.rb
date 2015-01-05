@@ -114,7 +114,7 @@ describe PingsController do
         # Trigger the behavior that occurs when invalid params are submitted
         Ping.any_instance.stub(:save).and_return(false)
         post :create, {target_id: @target.id, schedule_id: @schedule.id, ping:{ "http_code" => "invalid value" }}
-        response.should render_template("new")
+        response.should redirect_to(target_schedule_pings_url(@target, @schedule))
       end
     end
   end
@@ -157,8 +157,8 @@ describe PingsController do
         ping = Ping.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Ping.any_instance.stub(:save).and_return(false)
-        put :update, {target_id: @target.id, schedule_id: @schedule.id, id:ping.to_param, ping:{ "http_code" => "invalid value" }}
-        response.should render_template("edit")
+        put :update, {target_id: @target.id, schedule_id: @schedule.id, id:ping.to_param, ping:{http_code: nil}}
+        response.should redirect_to(target_schedule_ping_url(@target, @schedule, ping))
       end
     end
   end
