@@ -52,6 +52,13 @@ describe PingsController do
     end
   end
 
+  describe "GET history" do
+    it "show all pings independent on the current user" do
+      get :history, {}
+      expect(response.status).to eq 200
+    end
+  end
+
   describe "GET show" do
     it "assigns the requested ping as @ping" do
       ping = Ping.create! valid_attributes
