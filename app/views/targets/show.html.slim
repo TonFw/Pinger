@@ -11,10 +11,13 @@ p
 '|
 = link_to 'Back', targets_path
 
--@schedules.each do |schedule|
-  p
-    strong Hour:
-    =schedule.hour
-    -#link_to ' editar', edit_target_schedule(@target, schedule)
+-=begin
+  -@schedules.each do |schedule|
+    /!
+      p
+        strong Hour:
+        =schedule.hour
+        -#link_to ' editar', edit_target_schedule(@target, schedule)
+-=end
 
 =render 'pings/list'
