@@ -1,10 +1,11 @@
 class PingsController < ApplicationController
+  before_action :setup_nested
   before_action :set_ping, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @pings = Ping.all
+    @pings = @target.pings
     respond_with(@pings)
   end
 
@@ -42,6 +43,11 @@ class PingsController < ApplicationController
   end
 
   private
+    def setup_nested
+      @target = Target.find(params[:target_id])
+      @schedule = Schedule.find(params[:schedule_id])
+    end
+
     def set_ping
       @ping = Ping.find(params[:id])
     end
