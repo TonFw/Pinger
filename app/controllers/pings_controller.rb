@@ -6,7 +6,7 @@ class PingsController < ApplicationController
 
   def index
     @pings = @target.pings
-    respond_with(@pings)
+    respond_with(@target, @schedule, @pings)
   end
 
   def history
@@ -15,12 +15,12 @@ class PingsController < ApplicationController
   end
 
   def show
-    respond_with(@ping)
+    respond_with(@target, @schedule, @ping)
   end
 
   def new
     @ping = Ping.new
-    respond_with(@ping)
+    respond_with(@target, @schedule, @ping)
   end
 
   def edit
@@ -29,17 +29,17 @@ class PingsController < ApplicationController
   def create
     @ping = Ping.new(ping_params)
     @ping.save
-    respond_with(@ping)
+    respond_with(@target, @schedule, @ping)
   end
 
   def update
     @ping.update(ping_params)
-    respond_with(@ping)
+    respond_with(@target, @schedule, @ping)
   end
 
   def destroy
     @ping.destroy
-    respond_with(@ping)
+    respond_with(@target, @schedule, @ping)
   end
 
   private
@@ -53,6 +53,6 @@ class PingsController < ApplicationController
     end
 
     def ping_params
-      params.require(:ping).permit(:http_code, :scheduled_id, :target_id)
+      params.require(:ping).permit(:http_code, :schedule_id, :target_id)
     end
 end
