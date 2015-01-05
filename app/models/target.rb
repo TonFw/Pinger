@@ -14,18 +14,8 @@ class Target < ActiveRecord::Base
   def name
     # Base vars
     aux_name = self.url
-    http_index = aux_name.index('http://')
-    https_index = aux_name.index('https://') if http_index.nil?
-
-    # SetUp if http or https
-    if !http_index.nil?
-      protocol = 'http://'
-      protocol_index = http_index
-    else
-      protocol = 'https://'
-      protocol_index = https_index
-    end
-
-    aux_name[protocol_index+protocol.length..url.index('.')-1]
+    str_before_name = '//'
+    name_starts_at = aux_name.index(str_before_name)+str_before_name.length
+    aux_name[name_starts_at..url.index('.')-1]
   end
 end
