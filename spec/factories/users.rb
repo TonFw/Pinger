@@ -1,8 +1,15 @@
 FactoryGirl.define do
-  factory :user do
+  factory :pinger_user do
     name 'Pinger'
     email 'ping@pinger.com'
-    password 'example'
-    password_confirmation 'example'
+    password 'example_ping'
+    password_confirmation 'example_ping'
+  end
+
+  factory :other_user do
+    name 'Other'
+    email 'other@other.com'
+    password 'example_other'
+    password_confirmation 'example_other'
   end
 end
