@@ -2,33 +2,37 @@ require "spec_helper"
 
 describe SchedulesController do
   describe "routing" do
+    before(:all) do
+      @nested_id = '1'
+      @nested = "targets/#{@nested_id}"
+    end
 
     it "routes to #index" do
-      get("/schedules").should route_to("schedules#index")
+      get("#{@nested}/schedules").should route_to(action:'index', controller:'schedules', target_id: @nested_id)
     end
 
     it "routes to #new" do
-      get("/schedules/new").should route_to("schedules#new")
+      get("#{@nested}/schedules/new").should route_to("schedules#new", target_id: @nested_id)
     end
 
     it "routes to #show" do
-      get("/schedules/1").should route_to("schedules#show", :id => "1")
+      get("#{@nested}/schedules/1").should route_to("schedules#show", target_id: @nested_id, :id => "1")
     end
 
     it "routes to #edit" do
-      get("/schedules/1/edit").should route_to("schedules#edit", :id => "1")
+      get("#{@nested}/schedules/1/edit").should route_to("schedules#edit", target_id: @nested_id, :id => "1")
     end
 
     it "routes to #create" do
-      post("/schedules").should route_to("schedules#create")
+      post("#{@nested}/schedules").should route_to("schedules#create", target_id: @nested_id)
     end
 
     it "routes to #update" do
-      put("/schedules/1").should route_to("schedules#update", :id => "1")
+      put("#{@nested}/schedules/1").should route_to("schedules#update", target_id: @nested_id, :id => "1")
     end
 
     it "routes to #destroy" do
-      delete("/schedules/1").should route_to("schedules#destroy", :id => "1")
+      delete("#{@nested}/schedules/1").should route_to("schedules#destroy", target_id: @nested_id, :id => "1")
     end
 
   end

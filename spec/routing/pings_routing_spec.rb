@@ -2,33 +2,38 @@ require "spec_helper"
 
 describe PingsController do
   describe "routing" do
+    before(:all) do
+      @t_id = '1'
+      @s_id = '1'
+      @nested = "targets/#{@t_id}/schedules/#{@s_id}"
+    end
 
     it "routes to #index" do
-      get("/pings").should route_to("pings#index")
+      get("#{@nested}/pings").should route_to("pings#index", target_id:@t_id, schedule_id:@s_id)
     end
 
     it "routes to #new" do
-      get("/pings/new").should route_to("pings#new")
+      get("#{@nested}/pings/new").should route_to("pings#new", target_id:@t_id, schedule_id:@s_id)
     end
 
     it "routes to #show" do
-      get("/pings/1").should route_to("pings#show", :id => "1")
+      get("#{@nested}/pings/1").should route_to("pings#show", target_id:@t_id, schedule_id:@s_id, :id => "1")
     end
 
     it "routes to #edit" do
-      get("/pings/1/edit").should route_to("pings#edit", :id => "1")
+      get("#{@nested}/pings/1/edit").should route_to("pings#edit", target_id:@t_id, schedule_id:@s_id, :id => "1")
     end
 
     it "routes to #create" do
-      post("/pings").should route_to("pings#create")
+      post("#{@nested}/pings").should route_to("pings#create", target_id:@t_id, schedule_id:@s_id)
     end
 
     it "routes to #update" do
-      put("/pings/1").should route_to("pings#update", :id => "1")
+      put("#{@nested}/pings/1").should route_to("pings#update", target_id:@t_id, schedule_id:@s_id, :id => "1")
     end
 
     it "routes to #destroy" do
-      delete("/pings/1").should route_to("pings#destroy", :id => "1")
+      delete("#{@nested}/pings/1").should route_to("pings#destroy", target_id:@t_id, schedule_id:@s_id, :id => "1")
     end
 
   end
