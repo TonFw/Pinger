@@ -9,6 +9,8 @@ class TargetsController < ApplicationController
   end
 
   def show
+    @pings = @target.pings
+    @schedules = @target.schedules
     respond_with(@target)
   end
 
