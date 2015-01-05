@@ -1,24 +1,27 @@
 h1 Listing targets
 
-table
-  thead
+.table-responsive
+  table.table.table-hover
     tr
+      th Name
       th Url
       th User
       th
       th
       th
+      th
 
-  tbody
-    - @targets.each do |target|
-      tr
-        td = target.url
-        td = target.user.name
-        td = link_to 'AddSchedule', new_target_schedule_path(target)
-        td = link_to 'Show', target
-        td = link_to 'Edit', edit_target_path(target)
-        td = link_to 'Destroy', target, data: {:confirm => 'Are you sure?'}, :method => :delete
+    tbody
+      - @targets.each do |target|
+        tr
+          td = target.name
+          td = target.url
+          td = target.user.name
+          td = link_to 'AddSchedule', new_target_schedule_path(target)
+          td = link_to 'Show', target
+          td = link_to 'Edit', edit_target_path(target)
+          td = link_to 'Destroy', target, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-br
+  br
 
 = link_to 'New Target', new_target_path
