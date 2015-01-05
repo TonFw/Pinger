@@ -1,16 +1,16 @@
 FactoryGirl.define do
   factory :pinger_target do
+    user :pinger_user
     url "http://pinger.com"
-    user :pinger_user
   end
 
-  factory :pinger_target_2 do
-    url "http://pinger2.com"
-    user :pinger_user
+  factory :user_target do
+    user :user
+    url Faker::Internet.url
   end
 
-  factory :other_target do
-    url "http://other.com"
-    user :other_user
+  factory :user_target_2 do
+    user :user
+    url Faker::Internet.url
   end
 end
