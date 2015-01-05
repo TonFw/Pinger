@@ -22,20 +22,32 @@ describe PingsController do
   # SetUp Devise LogIn
   login_user
 
+  # SetUp it nested object association dependency
+  before(:each) do
+    login_user if @user.nil?
+
+    # Nested objs
+    @schedule = FactoryGirl.build(:schedule)
+    @target = FactoryGirl.build(:target)
+
+    # setup the target
+    @target.user = @user
+    @target.save
+
+    # setup the schedule
+    @schedule.target = @target
+    @schedule.save
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Ping. As you add validations to Ping, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "http_code" => "" } }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # PingsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_attributes) { { http_code: random_http_code, target_id: @target.id, schedule_id: @schedule.id } }
 
   describe "GET index" do
     it "assigns all pings as @pings" do
       ping = Ping.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {target_id: @target.id, schedule_id: @schedule.id}
       assigns(:pings).should eq([ping])
     end
   end
@@ -43,14 +55,14 @@ describe PingsController do
   describe "GET show" do
     it "assigns the requested ping as @ping" do
       ping = Ping.create! valid_attributes
-      get :show, {:id => ping.to_param}, valid_session
+      get :show, {target_id: @target.id, schedule_id: @schedule.id, id:ping.to_param}
       assigns(:ping).should eq(ping)
     end
   end
 
   describe "GET new" do
     it "assigns a new ping as @ping" do
-      get :new, {}, valid_session
+      get :new, {target_id: @target.id, schedule_id: @schedule.id}
       assigns(:ping).should be_a_new(Ping)
     end
   end
@@ -58,7 +70,7 @@ describe PingsController do
   describe "GET edit" do
     it "assigns the requested ping as @ping" do
       ping = Ping.create! valid_attributes
-      get :edit, {:id => ping.to_param}, valid_session
+      get :edit, {target_id:@target.id, schedule_id:@schedule.id, id:ping.to_param}
       assigns(:ping).should eq(ping)
     end
   end
@@ -67,19 +79,19 @@ describe PingsController do
     describe "with valid params" do
       it "creates a new Ping" do
         expect {
-          post :create, {:ping => valid_attributes}, valid_session
+          post :create, {target_id: @target.id, schedule_id: @schedule.id, ping:valid_attributes}
         }.to change(Ping, :count).by(1)
       end
 
       it "assigns a newly created ping as @ping" do
-        post :create, {:ping => valid_attributes}, valid_session
+        post :create, {target_id: @target.id, schedule_id: @schedule.id, ping:valid_attributes}
         assigns(:ping).should be_a(Ping)
         assigns(:ping).should be_persisted
       end
 
       it "redirects to the created ping" do
-        post :create, {:ping => valid_attributes}, valid_session
-        response.should redirect_to(Ping.last)
+        post :create, {target_id: @target.id, schedule_id: @schedule.id, ping:valid_attributes}
+        response.should redirect_to([@target, @schedule, Ping.last])
       end
     end
 
@@ -87,14 +99,14 @@ describe PingsController do
       it "assigns a newly created but unsaved ping as @ping" do
         # Trigger the behavior that occurs when invalid params are submitted
         Ping.any_instance.stub(:save).and_return(false)
-        post :create, {:ping => { "http_code" => "invalid value" }}, valid_session
+        post :create, {target_id: @target.id, schedule_id: @schedule.id, ping:{ "http_code" => "invalid value" }}
         assigns(:ping).should be_a_new(Ping)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Ping.any_instance.stub(:save).and_return(false)
-        post :create, {:ping => { "http_code" => "invalid value" }}, valid_session
+        post :create, {target_id: @target.id, schedule_id: @schedule.id, ping:{ "http_code" => "invalid value" }}
         response.should render_template("new")
       end
     end
@@ -109,19 +121,19 @@ describe PingsController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Ping.any_instance.should_receive(:update).with({ "http_code" => "" })
-        put :update, {:id => ping.to_param, :ping => { "http_code" => "" }}, valid_session
+        put :update, {target_id: @target.id, schedule_id: @schedule.id, id:ping.to_param, ping:{ "http_code" => "" }}
       end
 
       it "assigns the requested ping as @ping" do
         ping = Ping.create! valid_attributes
-        put :update, {:id => ping.to_param, :ping => valid_attributes}, valid_session
+        put :update, {target_id: @target.id, schedule_id: @schedule.id, id:ping.to_param, ping:valid_attributes}
         assigns(:ping).should eq(ping)
       end
 
       it "redirects to the ping" do
         ping = Ping.create! valid_attributes
-        put :update, {:id => ping.to_param, :ping => valid_attributes}, valid_session
-        response.should redirect_to(ping)
+        put :update, {target_id: @target.id, schedule_id: @schedule.id, id: ping.to_param, ping:valid_attributes}
+        response.should redirect_to([@target, @schedule, ping])
       end
     end
 
@@ -130,7 +142,7 @@ describe PingsController do
         ping = Ping.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Ping.any_instance.stub(:save).and_return(false)
-        put :update, {:id => ping.to_param, :ping => { "http_code" => "invalid value" }}, valid_session
+        put :update, {target_id: @target.id, schedule_id: @schedule.id, id:ping.to_param, ping:{ "http_code" => "invalid value" }}
         assigns(:ping).should eq(ping)
       end
 
@@ -138,7 +150,7 @@ describe PingsController do
         ping = Ping.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Ping.any_instance.stub(:save).and_return(false)
-        put :update, {:id => ping.to_param, :ping => { "http_code" => "invalid value" }}, valid_session
+        put :update, {target_id: @target.id, schedule_id: @schedule.id, id:ping.to_param, ping:{ "http_code" => "invalid value" }}
         response.should render_template("edit")
       end
     end
@@ -148,14 +160,14 @@ describe PingsController do
     it "destroys the requested ping" do
       ping = Ping.create! valid_attributes
       expect {
-        delete :destroy, {:id => ping.to_param}, valid_session
+        delete :destroy, {target_id: @target.id, schedule_id: @schedule.id, id: ping.id}
       }.to change(Ping, :count).by(-1)
     end
 
     it "redirects to the pings list" do
       ping = Ping.create! valid_attributes
-      delete :destroy, {:id => ping.to_param}, valid_session
-      response.should redirect_to(pings_url)
+      delete :destroy, {target_id: @target.id, schedule_id: @schedule.id, id: ping.to_param}
+      response.should redirect_to(target_schedule_pings_url(@target, @schedule))
     end
   end
 

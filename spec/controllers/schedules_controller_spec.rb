@@ -22,20 +22,23 @@ describe SchedulesController do
   # SetUp Devise LogIn
   login_user
 
+  # SetUp it nested object association dependency
+  before(:each) do
+    login_user if @user.nil?
+    @target = FactoryGirl.build(:target)
+    @target.user = @user
+    @target.save
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Schedule. As you add validations to Schedule, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "hour" => "" } }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # SchedulesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_attributes) { {hour:14, target_id:@target.id} }
 
   describe "GET index" do
     it "assigns all schedules as @schedules" do
       schedule = Schedule.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {target_id:@target.id}
       assigns(:schedules).should eq([schedule])
     end
   end
@@ -43,14 +46,14 @@ describe SchedulesController do
   describe "GET show" do
     it "assigns the requested schedule as @schedule" do
       schedule = Schedule.create! valid_attributes
-      get :show, {:id => schedule.to_param}, valid_session
+      get :show, {id: schedule.to_param, target_id:@target.id}
       assigns(:schedule).should eq(schedule)
     end
   end
 
   describe "GET new" do
     it "assigns a new schedule as @schedule" do
-      get :new, {}, valid_session
+      get :new, {target_id:@target.id}
       assigns(:schedule).should be_a_new(Schedule)
     end
   end
@@ -58,7 +61,7 @@ describe SchedulesController do
   describe "GET edit" do
     it "assigns the requested schedule as @schedule" do
       schedule = Schedule.create! valid_attributes
-      get :edit, {:id => schedule.to_param}, valid_session
+      get :edit, {id: schedule.to_param, target_id:@target.id}
       assigns(:schedule).should eq(schedule)
     end
   end
@@ -67,19 +70,19 @@ describe SchedulesController do
     describe "with valid params" do
       it "creates a new Schedule" do
         expect {
-          post :create, {:schedule => valid_attributes}, valid_session
+          post :create, {schedule: valid_attributes, target_id:@target.id}
         }.to change(Schedule, :count).by(1)
       end
 
       it "assigns a newly created schedule as @schedule" do
-        post :create, {:schedule => valid_attributes}, valid_session
+        post :create, {schedule: valid_attributes, target_id:@target.id}
         assigns(:schedule).should be_a(Schedule)
         assigns(:schedule).should be_persisted
       end
 
       it "redirects to the created schedule" do
-        post :create, {:schedule => valid_attributes}, valid_session
-        response.should redirect_to(Schedule.last)
+        post :create, {schedule: valid_attributes, target_id:@target.id}
+        response.should redirect_to([@target, Schedule.last])
       end
     end
 
@@ -87,14 +90,14 @@ describe SchedulesController do
       it "assigns a newly created but unsaved schedule as @schedule" do
         # Trigger the behavior that occurs when invalid params are submitted
         Schedule.any_instance.stub(:save).and_return(false)
-        post :create, {:schedule => { "hour" => "invalid value" }}, valid_session
+        post :create, {schedule: {hour:nil}, target_id:@target.id}
         assigns(:schedule).should be_a_new(Schedule)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Schedule.any_instance.stub(:save).and_return(false)
-        post :create, {:schedule => { "hour" => "invalid value" }}, valid_session
+        post :create, {target_id:@target.id, schedule: {hour:nil}}
         response.should render_template("new")
       end
     end
@@ -108,20 +111,20 @@ describe SchedulesController do
         # specifies that the Schedule created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Schedule.any_instance.should_receive(:update).with({ "hour" => "" })
-        put :update, {:id => schedule.to_param, :schedule => { "hour" => "" }}, valid_session
+        Schedule.any_instance.should_receive(:update).with({"hour" => "", 'target_id' => "#{@target.id}"})
+        put :update, {id: schedule.to_param, target_id: @target.id, schedule: { "hour" => "" }}
       end
 
       it "assigns the requested schedule as @schedule" do
         schedule = Schedule.create! valid_attributes
-        put :update, {:id => schedule.to_param, :schedule => valid_attributes}, valid_session
+        put :update, {target_id: @target.id, id: schedule.to_param, schedule: valid_attributes}
         assigns(:schedule).should eq(schedule)
       end
 
       it "redirects to the schedule" do
         schedule = Schedule.create! valid_attributes
-        put :update, {:id => schedule.to_param, :schedule => valid_attributes}, valid_session
-        response.should redirect_to(schedule)
+        put :update, {target_id:@target.id, id: schedule.to_param, schedule: valid_attributes}
+        response.should redirect_to([@target, schedule])
       end
     end
 
@@ -130,7 +133,7 @@ describe SchedulesController do
         schedule = Schedule.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Schedule.any_instance.stub(:save).and_return(false)
-        put :update, {:id => schedule.to_param, :schedule => { "hour" => "invalid value" }}, valid_session
+        put :update, {id: schedule.to_param, target_id:@target.id, schedule: {hour:nil}}
         assigns(:schedule).should eq(schedule)
       end
 
@@ -138,7 +141,7 @@ describe SchedulesController do
         schedule = Schedule.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Schedule.any_instance.stub(:save).and_return(false)
-        put :update, {:id => schedule.to_param, :schedule => { "hour" => "invalid value" }}, valid_session
+        put :update, {target_id:@target.id, id: schedule.to_param, schedule: {hour:nil}}
         response.should render_template("edit")
       end
     end
@@ -148,14 +151,14 @@ describe SchedulesController do
     it "destroys the requested schedule" do
       schedule = Schedule.create! valid_attributes
       expect {
-        delete :destroy, {:id => schedule.to_param}, valid_session
+        delete :destroy, {id: schedule.to_param, target_id:@target.id}
       }.to change(Schedule, :count).by(-1)
     end
 
     it "redirects to the schedules list" do
       schedule = Schedule.create! valid_attributes
-      delete :destroy, {:id => schedule.to_param}, valid_session
-      response.should redirect_to(schedules_url)
+      delete :destroy, {id: schedule.to_param, target_id:@target.id}
+      response.should redirect_to(target_schedules_url(@target))
     end
   end
 

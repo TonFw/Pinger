@@ -25,17 +25,12 @@ describe TargetsController do
   # This should return the minimal set of attributes required to create a valid
   # Target. As you add validations to Target, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "url" => "MyString" } }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # TargetsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_attributes) { {url:Faker::Internet.url, user_id:@user.id} }
 
   describe "GET index" do
     it "assigns all targets as @targets" do
       target = Target.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {}
       assigns(:targets).should eq([target])
     end
   end
@@ -43,14 +38,14 @@ describe TargetsController do
   describe "GET show" do
     it "assigns the requested target as @target" do
       target = Target.create! valid_attributes
-      get :show, {:id => target.to_param}, valid_session
+      get :show, {id: target.to_param}
       assigns(:target).should eq(target)
     end
   end
 
   describe "GET new" do
     it "assigns a new target as @target" do
-      get :new, {}, valid_session
+      get :new, {}
       assigns(:target).should be_a_new(Target)
     end
   end
@@ -58,7 +53,7 @@ describe TargetsController do
   describe "GET edit" do
     it "assigns the requested target as @target" do
       target = Target.create! valid_attributes
-      get :edit, {:id => target.to_param}, valid_session
+      get :edit, {id: target.to_param}
       assigns(:target).should eq(target)
     end
   end
@@ -67,18 +62,18 @@ describe TargetsController do
     describe "with valid params" do
       it "creates a new Target" do
         expect {
-          post :create, {:target => valid_attributes}, valid_session
+          post :create, {target: valid_attributes}
         }.to change(Target, :count).by(1)
       end
 
       it "assigns a newly created target as @target" do
-        post :create, {:target => valid_attributes}, valid_session
+        post :create, {target: valid_attributes}
         assigns(:target).should be_a(Target)
         assigns(:target).should be_persisted
       end
 
       it "redirects to the created target" do
-        post :create, {:target => valid_attributes}, valid_session
+        post :create, {target: valid_attributes}
         response.should redirect_to(Target.last)
       end
     end
@@ -87,14 +82,14 @@ describe TargetsController do
       it "assigns a newly created but unsaved target as @target" do
         # Trigger the behavior that occurs when invalid params are submitted
         Target.any_instance.stub(:save).and_return(false)
-        post :create, {:target => { "url" => "invalid value" }}, valid_session
+        post :create, {target: { url:nil }}
         assigns(:target).should be_a_new(Target)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Target.any_instance.stub(:save).and_return(false)
-        post :create, {:target => { "url" => "invalid value" }}, valid_session
+        post :create, {target: { url:nil }}
         response.should render_template("new")
       end
     end
@@ -108,19 +103,19 @@ describe TargetsController do
         # specifies that the Target created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Target.any_instance.should_receive(:update).with({ "url" => "MyString" })
-        put :update, {:id => target.to_param, :target => { "url" => "MyString" }}, valid_session
+        Target.any_instance.should_receive(:update).with({'url'=>"MyString"})
+        put :update, {id: target.to_param, target: {'url'=>"MyString"}}
       end
 
       it "assigns the requested target as @target" do
         target = Target.create! valid_attributes
-        put :update, {:id => target.to_param, :target => valid_attributes}, valid_session
+        put :update, {id: target.to_param, target: valid_attributes}
         assigns(:target).should eq(target)
       end
 
       it "redirects to the target" do
         target = Target.create! valid_attributes
-        put :update, {:id => target.to_param, :target => valid_attributes}, valid_session
+        put :update, {id: target.to_param, target: valid_attributes}
         response.should redirect_to(target)
       end
     end
@@ -130,7 +125,7 @@ describe TargetsController do
         target = Target.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Target.any_instance.stub(:save).and_return(false)
-        put :update, {:id => target.to_param, :target => { "url" => "invalid value" }}, valid_session
+        put :update, {id: target.to_param, target: {url:nil}}
         assigns(:target).should eq(target)
       end
 
@@ -138,7 +133,7 @@ describe TargetsController do
         target = Target.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Target.any_instance.stub(:save).and_return(false)
-        put :update, {:id => target.to_param, :target => { "url" => "invalid value" }}, valid_session
+        put :update, {id: target.to_param, target: {url:nil}}
         response.should render_template("edit")
       end
     end
@@ -148,13 +143,13 @@ describe TargetsController do
     it "destroys the requested target" do
       target = Target.create! valid_attributes
       expect {
-        delete :destroy, {:id => target.to_param}, valid_session
+        delete :destroy, {id: target.to_param}
       }.to change(Target, :count).by(-1)
     end
 
     it "redirects to the targets list" do
       target = Target.create! valid_attributes
-      delete :destroy, {:id => target.to_param}, valid_session
+      delete :destroy, {id: target.to_param}
       response.should redirect_to(targets_url)
     end
   end
