@@ -9,6 +9,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'devise'
 require 'rspec/rails'
 require 'rspec/autorun'
+require './spec/helpers'
 require 'factory_girl_rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -34,6 +35,9 @@ RSpec.configure do |config|
   # Adding devise
   config.include Devise::TestHelpers, type: :controller
   config.extend ControllerMacros, type: :controller
+
+  # My SPec helpers methods
+  config.include Helpers
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
