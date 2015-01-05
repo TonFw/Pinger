@@ -1,5 +1,5 @@
 class PingsController < ApplicationController
-  before_action :setup_nested
+  before_action :setup_nested, except: :history
   before_action :set_ping, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
