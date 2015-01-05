@@ -1,18 +1,20 @@
 p
-  strong Url:
-  = @target.url
-p
   strong User:
-  = @target.user.name
-
--@target.schedules.each do |schedule|
-  p
-    strong Hour:
-    =schedule.hour
-    -#link_to ' editar', edit_target_schedule(@target, schedule)
+  = " #{@target.user.name}"
+p
+  strong Url:
+  = " #{@target.url}"
 
 = link_to 'Add schedules ', new_target_schedule_path(@target)
 '|
 = link_to 'Edit ', edit_target_path(@target)
 '|
 = link_to 'Back', targets_path
+
+-@schedules.each do |schedule|
+  p
+    strong Hour:
+    =schedule.hour
+    -#link_to ' editar', edit_target_schedule(@target, schedule)
+
+=render 'pings/list'
