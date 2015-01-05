@@ -5,13 +5,15 @@ describe "Pings" do
   before do
     # Sign in as a user.
     sign_in_as_a_valid_user
+    @target_id = 1
+    @schedule_id = 1
   end
 
-  describe "GET /pings" do
+  describe "GET /targets/:target_id/schedules/:schedule_id/pings" do
     it "works! (now write some real specs)" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get pings_path
-      response.status.should be(200)
+      get target_schedule_pings_path(@target_id, @schedule_id)
+      expect(response.status).to eq 200
     end
   end
 end
