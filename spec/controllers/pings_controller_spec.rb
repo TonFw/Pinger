@@ -19,6 +19,8 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe PingsController do
+  # SetUp Devise LogIn
+  login_user
 
   # This should return the minimal set of attributes required to create a valid
   # Ping. As you add validations to Ping, be sure to

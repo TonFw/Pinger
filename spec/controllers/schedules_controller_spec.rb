@@ -19,6 +19,8 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe SchedulesController do
+  # SetUp Devise LogIn
+  login_user
 
   # This should return the minimal set of attributes required to create a valid
   # Schedule. As you add validations to Schedule, be sure to
