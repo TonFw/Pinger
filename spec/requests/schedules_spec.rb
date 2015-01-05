@@ -5,14 +5,18 @@ describe "Schedules" do
   before do
     # Sign in as a user.
     sign_in_as_a_valid_user
-    @schedule = FactoryGirl.create(:user_target_schedule)
-    @target = @schedule.target
+    @target = FactoryGirl.build(:target)
+    @schedule = FactoryGirl.build(:schedule)
+    @target.user = @user
+    @target.save
+    @schedule.target = @target
+    @schedule.save
   end
 
   describe "GET /targets/:target_id/schedules" do
     it "schedules index" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get target_schedules_path(@target.id)
+      get target_schedules_path(@target)
       response.status.should be(200)
     end
 
