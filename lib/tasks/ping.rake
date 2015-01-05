@@ -9,6 +9,9 @@ namespace :ping do
     require 'rubygems'
     require 'rufus-scheduler'
 
+    # It is the time between the requests
+    time_sleeping = '30s'
+
     # Create a new scheduler Thread
     scheduler = Rufus::Scheduler.new
 
@@ -16,7 +19,7 @@ namespace :ping do
     puts "The ping:schedules task is waiting...".light_blue
 
     # Run every time passed here as string
-    scheduler.every '15s' do
+    scheduler.every time_sleeping do
       # base vars & starts
       puts 'Scheduled running pings'.green
       current_hour = Time.now.hour
