@@ -29,12 +29,12 @@ class SchedulesController < ApplicationController
 
   def update
     @schedule.update(schedule_params)
-    respond_with(@schedule)
+    respond_with(@target, @schedule)
   end
 
   def destroy
     @schedule.destroy
-    respond_with(@schedule)
+    respond_with(@target, @schedule)
   end
 
   private
