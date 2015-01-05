@@ -5,7 +5,9 @@ describe "Targets" do
   before do
     # Sign in as a user.
     sign_in_as_a_valid_user
-    @target = @user.targets.first
+    @target = FactoryGirl.build(:target)
+    @target.user = @user
+    @target.save
   end
 
   describe "GET /targets" do
