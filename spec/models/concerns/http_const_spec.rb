@@ -46,5 +46,19 @@ describe HttpConst do
     it 'should not be server_error' do
       expect(HttpConst.server_error? @redirect).to_not be_true
     end
+
+    context 'HTTP Code Name' do
+      it 'should return the name based on it number code' do
+        # Vars
+        const = HttpConst.codes
+        @names = const.keys
+        @numbers = const.values
+
+        # Test 3 examples
+        expect(HttpConst.code_name @numbers.first).to eq @names.first
+        expect(HttpConst.code_name @numbers[(@numbers.length/2)-1]).to eq @names[(@names.length/2)-1]
+        expect(HttpConst.code_name @numbers.last).to eq @names.last
+      end
+    end
   end
 end
