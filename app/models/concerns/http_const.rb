@@ -55,6 +55,10 @@ class HttpConst
     @@codes
   end
 
+  def self.codes_as_array
+    @@codes.to_a
+  end
+
   # return it http code name based on the number passed as key
   def self.code_name key
     keys = HttpConst.codes.keys
