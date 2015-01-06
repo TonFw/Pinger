@@ -11,6 +11,7 @@ puts '...Users inserted.'.colorize(:light_blue)
 
 puts 'Inserting Targets...'.colorize(:green)
   puts "target itself created: #{Target.find_or_create_by!({url:'http://apppinger.herokuapp.com', user_id:1})}"
+  puts "target itself created: #{Target.find_or_create_by!({url:'http://apppinger2.herokuapp.com', user_id:1})}"
   puts "target itself created: #{Target.find_or_create_by({url:'http://pagerenter.herokuapp.com', user_id:1})}"
   puts "target itself created: #{Target.find_or_create_by({url:'http://apprents.herokuapp.com', user_id:1})}"
 puts '...Targets inserted.'.colorize(:light_blue)

@@ -10,7 +10,7 @@ namespace :ping do
     require 'rufus-scheduler'
 
     # It is the time between the requests
-    time_sleeping = '30s'
+    time_sleeping = '2m'
 
     # Create a new scheduler Thread
     scheduler = Rufus::Scheduler.new
